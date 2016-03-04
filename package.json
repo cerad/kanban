@@ -2,7 +2,8 @@
   "name": "kanban",
   "version": "0.0.0",
   "description": "kanan dev",
-  "main": "index.js",
+  "main": "index.jsx",
+  "private": true,
   "scripts": {
     "build": "webpack",
     "start": "webpack-dev-server"
@@ -24,6 +25,7 @@
     "webpack-merge": "^0.8.3"
   },
   "dependencies": {
+    "node-uuid": "^1.4.7",
     "react": "^0.14.7",
     "react-dom": "^0.14.7"
   }
