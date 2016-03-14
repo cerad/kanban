@@ -26,6 +26,18 @@ export default class App extends React.Component
             ]
         };
     }
+    render() {
+
+        const notes = this.state.notes;
+
+        return (
+            <div>
+                <button className="add-note" onClick={this.addNote}>Add Note Task</button>
+                <Notes notes={notes} onEdit={this.editNote} onDelete={this.deleteNote}/>
+            </div>
+        );
+
+    };
     addNote = () => {
         this.setState({
             notes: this.state.notes.concat([{
@@ -33,17 +45,29 @@ export default class App extends React.Component
                 task: 'New task'
             }])
         });
-    }
-    render() {
+    };
+    editNote = (id, task) => {
+        // Don't modify if trying set an empty value
+        if(!task.trim()) {
+            return;
+        }
 
-        const notes = this.state.notes;
+        const notes = this.state.notes.map(note => {
+            if(note.id === id && task) {
+                note.task = task;
+            }
 
-        return (
-            <div>
-                <button onClick={this.addNote}>Add Note Task</button>
-                <Notes notes={notes} />
-            </div>
-        );
+            return note;
+        });
 
-    }
+        this.setState({notes});
+    };
+    deleteNote = (id, e) => {
+        // Avoid bubbling to edit
+        e.stopPropagation();
+
+        this.setState({
+            notes: this.state.notes.filter(note => note.id !== id)
+        });
+    };
 }
